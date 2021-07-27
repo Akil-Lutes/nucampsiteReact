@@ -6,7 +6,7 @@ class CampsiteInfo extends Component {
 
     renderCampsite(campsite) {
         return(
-                <div className="col-md-5 and m-1">
+                <div className="col-md-5 m-1">
                     <Card>
                         <CardImg top src={campsite.image} alt={campsite.name} />
                         <CardBody>
@@ -19,16 +19,35 @@ class CampsiteInfo extends Component {
     }
 
     renderComments(comments) {
-        
+        if (comments){
+        return(
+            <div className="col-md-5 m-1">
+            <h4>Comments</h4>
+            {comments.map((comment) => {
+                return <div key={comment.id}> 
+                {comment.text}
+                <br></br>
+                --{comment.author}, {' '}
+                {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                <br></br>
+                <br></br> 
+                </div>
+            })}
+            </div>
+            
+        )
+        }
+        <div/>
     }
     
         render() {
             if(this.props.campsite) {
             return (
                 <div className="row">
-                    <div>
+                    
                         { this.renderCampsite(this.props.campsite) }
-                    </div>
+                        { this.renderComments(this.props.campsite.comments)}
+                    
                 </div>
             )
         }
@@ -37,10 +56,3 @@ class CampsiteInfo extends Component {
 }
 
 export default CampsiteInfo
-
-//  <div className="row">
-//                     <div className="col-md-5 m-1">
-//                         {this.renderSelectedCampsite(this.state.selectedCampsite)}
-//                     </div>
-//                 </div> 
-

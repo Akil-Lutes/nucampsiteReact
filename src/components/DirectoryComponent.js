@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
-import CampsiteInfo from './CampsiteInfoComponent'
+import CampsiteInfo from './CampsiteInfo'
 
 // campsites is a prop, campsite is mapped
+// I made selectedCampsite state null so a card wouldn't be selected yet.
+// then made a method to where I setState to selectedCampsite prop.
 
 class Directory extends Component {
     constructor(props) {
@@ -15,21 +17,6 @@ class Directory extends Component {
     onCampsiteSelect(campsite) {
         this.setState({selectedCampsite: campsite});
     }
-
-    // renderSelectedCampsite(campsite) {
-    //     if (campsite) {
-    //         return (
-    //             <Card>
-    //                 <CardImg top src={campsite.image} alt={campsite.name} />
-    //                 <CardBody>
-    //                     <CardTitle>{campsite.name}</CardTitle>
-    //                     <CardText>{campsite.description}</CardText>
-    //                 </CardBody>
-    //             </Card>
-    //         );
-    //     }
-    //     return <div />;
-    // }
 
     render() {
         const directory = this.props.campsites.map(campsite => {
@@ -49,7 +36,7 @@ class Directory extends Component {
             <div className="container">
                 <div className="row">
                     {directory}
-                    <CampsiteInfo campsite={this.state.selectedCampsite} />
+                    <CampsiteInfo campsite={this.state.selectedCampsite} comments={this.props.comments} />
                 </div>
                 
             </div>
@@ -58,9 +45,3 @@ class Directory extends Component {
 }
 
 export default Directory;
-
-// {/* <div className="row">
-//                     <div className="col-md-5 m-1">
-//                         {this.renderSelectedCampsite(this.state.selectedCampsite)}
-//                     </div>
-//                 </div> */}
