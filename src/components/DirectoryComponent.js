@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
 
+// Card Images component 
 function RenderDirectoryItem({campsite, onClick}) {
     return (
         <Card onClick={() => onClick(campsite.id)}>
@@ -13,6 +14,8 @@ function RenderDirectoryItem({campsite, onClick}) {
     );
 }
 
+
+// mapped over props.campsites to make all campsite images appear and have a click function
 function Directory(props) {
 
     const directory = props.campsites.map(campsite => {
