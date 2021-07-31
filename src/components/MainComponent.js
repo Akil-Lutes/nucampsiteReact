@@ -4,6 +4,10 @@ import { CAMPSITES } from '../shared/campsites';
 import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 import CampsiteInfo from './CampsiteInfo'
+import Home from './HomeComponent';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+// setting up the brains of react-router, to know where to send users when links are clicked
 
 // campsites is a prop, campsite is mapped
 // I made selectedCampsite state null so a card wouldn't be selected yet.
@@ -15,20 +19,26 @@ class Main extends Component {
         super(props);
         this.state = {
             campsites: CAMPSITES,
-            selectedCampsite: null
         };
     }
 
-    onCampsiteSelect(campsiteId) {
-        this.setState({selectedCampsite: campsiteId});
-    }
-
     render() {
+
+        const HomePage = () => {
+            return (
+                <Home />
+            );
+        };
+
         return (
             <div>
                 <Header />
-                <Directory campsites={this.state.campsites} onClick={campsiteId => this.onCampsiteSelect(campsiteId)} />
-                <CampsiteInfo campsite={this.state.campsites.filter(campsite => campsite.id === this.state.selectedCampsite)[0] } />
+                <Switch>
+                    <Route path='/home' component={HomePage} />
+                    <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />} />
+                    <Redirect to='/home' />
+                    <Directory campsites={this.state.campsites} />
+                </Switch>
                 <Footer />
             </div>
         );
