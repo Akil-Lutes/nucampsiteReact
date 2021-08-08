@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 // Campsite info component with text
@@ -29,12 +29,13 @@ import { Link } from 'react-router-dom';
                 --{comment.author}, {' '}
                 {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
                 <br></br>
-                <br></br> 
+                <br></br>
                 </div>
             })}
+            <CommentForm />
             </div>
             
-        )
+            )
         }
         <div/>
     }
@@ -62,5 +63,30 @@ import { Link } from 'react-router-dom';
         }
         return <div />;
     }
+    
+    
+    export class CommentForm extends Component {
+
+        toggleModal() {
+            this.props.toggleModal({isModalOpen: !this.props.isModalOpen})
+        }
+        
+        render() {
+            return (
+                <div>
+                    <Button className="success" outline onClick={this.props.toggleModal}><i className="fa fa-pencil" />Submit Comment
+                    <Modal isOpen={this.toggleModal} toggle={this.props.toggleModal}>
+                        <ModalHeader toggle={this.toggleModal}></ModalHeader>
+                            <ModalBody>
+
+                            </ModalBody>
+
+                    </Modal>
+                    </Button>
+                </div>
+            )
+        }
+    }
+    
     
     export default CampsiteInfo;
